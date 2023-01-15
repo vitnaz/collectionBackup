@@ -1,0 +1,519 @@
+{
+	"info": {
+		"_postman_id": "495e2ba8-55eb-40f7-9788-a21987240702",
+		"name": "Simple Books - tutorial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d54cb6a5-3a20-4178-9e0e-2649f980e8c4",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"//console.log(response.status);\r",
+							"//console.log(response['status']);\r",
+							"\r",
+							"pm.test(\"Status is OK\", () => {\r",
+							"    pm.expect(response.status).to.eql(\"OK\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c663506b-1bae-4184-a164-a64bff8ed228",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "3f73cf21-179e-4f0b-9f46-d9237486e1d4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseURL}}/status"
+			},
+			"response": []
+		},
+		{
+			"name": "List of Books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ae8a398e-6e1f-49bf-abd4-a5af1db73531",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"/*\r",
+							"let firstName = 'John';\r",
+							"let lastName = 'Doe';\r",
+							"let fullName = `${firstName} ${lastName}`;\r",
+							"console.log(fullName);\r",
+							"*/\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"// console.log(response);\r",
+							"\r",
+							"// filter out unavailable books\r",
+							"const availableBooks = response.filter((book) => book.available === true);\r",
+							"// console.log(\"Available books :\",availableBooks);\r",
+							"\r",
+							"const a_length = availableBooks.length;\r",
+							"// setting default ind in case of the sort order is \"forward\" (actually, any value other than \"reverse\")\r",
+							"let ind = 0;\r",
+							"\r",
+							"// mySortOrder is an environment variable which defines the sort order: \"reverse\" (from bottom) or anything else e.g. \"forward\" (from top)     \r",
+							"const sortOrder = pm.environment.get(\"mySortOrder\");\r",
+							"// console.log(\"Sort order :\",sortOrder);\r",
+							"\r",
+							"if (sortOrder === \"reverse\") {\r",
+							"    // adjusting index in case of \"reverse\" sort order to be the last item in array\r",
+							"    ind = a_length - 1; \r",
+							"}\r",
+							"\r",
+							"const book = availableBooks[ind];\r",
+							"\r",
+							"if (book) {\r",
+							"    pm.environment.set(\"myBookId\", book.id);\r",
+							"} else {\r",
+							"    pm.environment.set(\"myBookId\", \"NaN\");\r",
+							"};\r",
+							"\r",
+							"pm.test(\"Available book found\", () => {\r",
+							"    pm.expect(book).to.be.an('object');\r",
+							"    pm.expect(book.available).to.be.true;\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "d629fc2a-6f6a-4517-ad7d-d2c59a3a874f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/books?type=non-fiction&limit=20",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "non-fiction"
+						},
+						{
+							"key": "limit",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2341752a-bf29-4923-a6f5-ba1797975ed9",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// console.log(response['current-stock']);\r",
+							"\r",
+							"pm.test(\"In stock\", () => {\r",
+							"    // if current-stock value is greater than 0\r",
+							"    pm.expect(response['current-stock']).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"postman.setNextRequest(\"Submit an order\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "699697dd-f1fd-4c01-96c6-6d15d22c62d8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/books/:bookID",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"books",
+						":bookID"
+					],
+					"variable": [
+						{
+							"key": "bookID",
+							"value": "{{myBookId}}",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API Authentication",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8048b0e-382b-4ebd-b407-44375cd5ec40",
+						"exec": [
+							"/*\r",
+							"let person = {\r",
+							"    firstName: 'John',\r",
+							"    lastName: 'Doe',\r",
+							"    age: 30,\r",
+							"    sprof: ['one', 'two', 'three', 4, {name: 99}],\r",
+							"    sayHello: function () {\r",
+							"        console.log(`Hello ${this.firstName}!`)\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"person.sprof.push(77);\r",
+							"\r",
+							"person.sprof.forEach(logItems);\r",
+							"\r",
+							"function logItems(a, b, c) {\r",
+							"//    console.log(a);\r",
+							"    console.log(a, ', ', b, ', ', c[b]);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"// example of copying objects: 1 - stringify, 2 - parse and 3 - assign result to another 'object' variable\r",
+							"let JSONPerson = JSON.parse(JSON.stringify(person));  \r",
+							"*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "a6eb047d-3da5-44d7-aa06-2aa248b378c7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"clientName\": \"Postman\",\r\n   \"clientEmail\": \"ttest123_1@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseURL}}/api-clients"
+			},
+			"response": []
+		},
+		{
+			"name": "Submit an order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "84f44549-d736-456e-9a08-9994e5859543",
+						"exec": [
+							"pm.test(\"Status code is 201\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"console.log(response.orderId);\r",
+							"\r",
+							"if (response) {\r",
+							"    pm.environment.set(\"myOrderId\", response.orderId);\r",
+							"};\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "ab53f9e8-8418-4380-a816-7463be01d17b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{accessToken}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"bookId\": {{myBookId}},\r\n  \"customerName\": \"Steve {{$randomLastName}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseURL}}/orders"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2763770c-2609-4c38-9f7c-40c5d595b0f1",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "68d51dba-c8de-41f9-8da6-50b2dd6d65b3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{accessToken}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{baseURL}}/orders"
+			},
+			"response": []
+		},
+		{
+			"name": "Get an Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c6f17fb2-60df-4dc0-8dfe-f8a112f9c458",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "d1fb34ca-f0a8-44f1-a190-3838c242a8d8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{accessToken}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/orders/:orderId",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{myOrderId}}",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3460da49-0339-4bab-8691-b9d959618ca9",
+						"exec": [
+							"pm.test(\"Status code is 204\", () => {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "c479bfc9-af7b-4955-9ca8-4c6ec164d4e0",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{accessToken}}"
+					}
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerName\": \"{{$randomFirstName}} {{$randomLastName}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/orders/:orderId",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{myOrderId}}",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f326f31d-0df3-473e-8389-a222a73c97f2",
+						"exec": [
+							"pm.test(\"Status code is 204\", () => {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"postman.setNextRequest(null);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "e14a661b-21f4-4f7e-8763-02dc26559c5c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{accessToken}}"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/orders/:orderId",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{myOrderId}}",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "119e9b08-8010-458e-b594-ef28a91351a7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "38428bab-f0d9-489e-a71a-eb8ec51ebe6e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
