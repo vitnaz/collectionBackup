@@ -40,7 +40,7 @@
 					}
 				}
 			],
-			"_postman_id": "3f73cf21-179e-4f0b-9f46-d9237486e1d4",
+			"id": "3f73cf21-179e-4f0b-9f46-d9237486e1d4",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -109,7 +109,7 @@
 					}
 				}
 			],
-			"_postman_id": "d629fc2a-6f6a-4517-ad7d-d2c59a3a874f",
+			"id": "d629fc2a-6f6a-4517-ad7d-d2c59a3a874f",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -166,7 +166,7 @@
 					}
 				}
 			],
-			"_postman_id": "699697dd-f1fd-4c01-96c6-6d15d22c62d8",
+			"id": "699697dd-f1fd-4c01-96c6-6d15d22c62d8",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -185,8 +185,7 @@
 					"variable": [
 						{
 							"key": "bookID",
-							"value": "{{myBookId}}",
-							"type": "string"
+							"value": "{{myBookId}}"
 						}
 					]
 				}
@@ -230,7 +229,7 @@
 					}
 				}
 			],
-			"_postman_id": "a6eb047d-3da5-44d7-aa06-2aa248b378c7",
+			"id": "a6eb047d-3da5-44d7-aa06-2aa248b378c7",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -275,7 +274,7 @@
 					}
 				}
 			],
-			"_postman_id": "ab53f9e8-8418-4380-a816-7463be01d17b",
+			"id": "ab53f9e8-8418-4380-a816-7463be01d17b",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -317,7 +316,7 @@
 					}
 				}
 			],
-			"_postman_id": "68d51dba-c8de-41f9-8da6-50b2dd6d65b3",
+			"id": "68d51dba-c8de-41f9-8da6-50b2dd6d65b3",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -350,7 +349,7 @@
 					}
 				}
 			],
-			"_postman_id": "d1fb34ca-f0a8-44f1-a190-3838c242a8d8",
+			"id": "d1fb34ca-f0a8-44f1-a190-3838c242a8d8",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -375,8 +374,7 @@
 					"variable": [
 						{
 							"key": "orderId",
-							"value": "{{myOrderId}}",
-							"type": "string"
+							"value": "{{myOrderId}}"
 						}
 					]
 				}
@@ -399,7 +397,7 @@
 					}
 				}
 			],
-			"_postman_id": "c479bfc9-af7b-4955-9ca8-4c6ec164d4e0",
+			"id": "c479bfc9-af7b-4955-9ca8-4c6ec164d4e0",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -433,8 +431,7 @@
 					"variable": [
 						{
 							"key": "orderId",
-							"value": "{{myOrderId}}",
-							"type": "string"
+							"value": "{{myOrderId}}"
 						}
 					]
 				}
@@ -453,14 +450,13 @@
 							"    pm.response.to.have.status(204);\r",
 							"});\r",
 							"\r",
-							"postman.setNextRequest(null);\r",
-							""
+							"postman.setNextRequest(null);"
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
-			"_postman_id": "e14a661b-21f4-4f7e-8763-02dc26559c5c",
+			"id": "e14a661b-21f4-4f7e-8763-02dc26559c5c",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -485,8 +481,7 @@
 					"variable": [
 						{
 							"key": "orderId",
-							"value": "{{myOrderId}}",
-							"type": "string"
+							"value": "{{myOrderId}}"
 						}
 					]
 				}
