@@ -57,7 +57,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ae8a398e-6e1f-49bf-abd4-a5af1db73531",
+						"id": "6290581e-3906-4ea2-a42f-bbced12ddba9",
 						"exec": [
 							"pm.test(\"Status code is 200\", () => {\r",
 							"    pm.response.to.have.status(200);\r",
