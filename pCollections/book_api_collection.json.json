@@ -238,7 +238,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \"clientName\": \"Postman\",\r\n   \"clientEmail\": \"ttest123_1@example.com\"\r\n}",
+					"raw": "{\r\n   \"clientName\": \"Postman\",\r\n   \"clientEmail\": \"ttest123_2@example.com\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
